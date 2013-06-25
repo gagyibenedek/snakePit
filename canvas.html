@@ -14,15 +14,41 @@ var xTar;
 var yTar;
 
 var timer;
+var bonusTimer;
+var timerValue = 100;
 
 var direction;
 
 
 function doKeyDown(e) {
 
- if(e.keyCode == 97 || e.keyCode == 119 || e.keyCode == 100 || e.keyCode == 115){ // a || s || d || w
+if(e.keyCode == 97 && direction != 100){       //a  
 	direction = e.keyCode;
 	} 
+
+ if(e.keyCode == 119 && direction != 115){     //s 
+	direction = e.keyCode;
+	} 
+	
+ if(e.keyCode == 100 && direction != 97){     //d  
+	direction = e.keyCode;
+	} 
+	
+ if(e.keyCode == 115 && direction != 119){     //w  
+	direction = e.keyCode;
+	} 
+	
+if(e.keyCode == 43 && timerValue > 100){       //+
+	window.clearInterval(timer);
+	timerValue -= 50;
+	 timer = window.setInterval(function () {draw()},timerValue);
+}
+
+if(e.keyCode == 45 && timerValue < 1000){      //-
+	window.clearInterval(timer);
+	timerValue += 50;
+	timer = window.setInterval(function () {draw()},timerValue);
+}
 
 }
 
@@ -53,41 +79,48 @@ function draw() {
 
 	if(direction == 97){ // a
 		xTar -= 5;
-		cropX = xTar - 1;
-		cropY = yTar+2;
+		
+		cropX = xTar + 2;
+		cropY = yTar - 2;
 		cropSizeX = -4;
 		cropSizeY = 4;
 	} else  if(direction == 119){ // w
-	yTar -= 5;
+		yTar -= 5;
+		
+		cropX = xTar + 2;
+		cropY = yTar - 2;
+		cropSizeX = - 4;
+		cropSizeY = 4;
 	} else if(direction == 100){ // d
-	xTar += 5;
+		xTar += 5;
+		
+		cropX = xTar + 2;
+		cropY = yTar - 2;
+		cropSizeX = - 4;
+		cropSizeY = 4;
 	} else  if(direction == 115){ // s
-	yTar += 5; 
+		yTar += 5; 
+		
+		cropX = xTar + 2;
+		cropY = yTar - 2;
+		cropSizeX = -4;
+		cropSizeY = 4;
 	}
 	
-	if(direction == 97){
-	var whatColor = ctx.getImageData(140,140,20,20);
+
+	var whatColor = ctx.getImageData(cropX,cropY,cropSizeX,cropSizeY);
 	
 		for (var i = 0; i < 4 * 4 * 4; i += 4) {
-			
-			if(whatColor.data[i] != 255){
-				console.log(whatColor.data[i]);
-			}
-			
-			  /*
-			  if (whatColor.data[i] == 255 || whatColor.data[i+1] == 255 
-				|| whatColor.data[i+2] == 255) {
+						  
+			if (whatColor.data[i] != 255 || whatColor.data[i+1] != 255 
+				|| whatColor.data[i+2] != 255) {
 				alert("black collision");
+				stop();
 				break;
-			  }
-			   if (whatColor.data[i] == 0 || whatColor.data[i+1] == 0 
-				|| whatColor.data[i+2] == 0) {
-				alert("white collision");
-				break;
-			  }
-			  */
+			}
+			  
 		}
-	}
+	
 
 	ctx.beginPath();
 	ctx.moveTo(xPos,yPos);
@@ -100,20 +133,24 @@ function draw() {
   yPos = yTar;
 }
 
+function drawBonus(){
+	var imageObj = new Image();
+
+    imageObj.onload = function() {
+		ctx.drawImage(imageObj, 69, 50, 10, 10);
+    };
+    imageObj.src = 'gombaaa.jpg';
+}
+
 function start() {
-  timer = window.setInterval(function () {draw()},100);
+  timer = window.setInterval(function () {draw()},timerValue);
+  bonusTimer = window.setInterval(function () {drawBonus()},1000);
 }
 
 function stop() {
   window.clearInterval(timer);
   canvas.width = canvas.width;
-  xPos = 200;
-  yPos = 200;
-  
-  	xTar = xPos;
-	yTar = yPos;
-	
-	direction = 97;
+  init();
 }
 </script>
  
