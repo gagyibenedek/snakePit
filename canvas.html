@@ -22,39 +22,71 @@ function doKeyDown(e) {
 
  if(e.keyCode == 97 || e.keyCode == 119 || e.keyCode == 100 || e.keyCode == 115){ // a || s || d || w
 	direction = e.keyCode;
-	console.log("DIR CHANGED TO:" + direction);
-} 
+	} 
 
 }
 
 function init() {
   canvas = document.getElementById('canvas');
   if (canvas.getContext) {
-    ctx = canvas.getContext("2d");    
+    ctx = canvas.getContext("2d");   
+	ctx.fillStyle   = '#FFFFFF'; // set canvas background color
+	ctx.fillRect  (0,   0, 400, 400);  // now fill the canvas
   }
   
-  window.addEventListener( "keypress", doKeyDown, false );
+	window.addEventListener( "keypress", doKeyDown, false );
   
-  xPos = 150;
-  yPos = 150;
+	xPos = 150;
+	yPos = 150;
   
-  	xTar = xPos;
+	xTar = xPos;
 	yTar = yPos;
 	
 	direction = 97;
 }
 
 function draw() {
-	console.log(direction);
+	var cropX;
+	var cropY;
+	var cropSizeX;
+	var cropSizeY;
 
 	if(direction == 97){ // a
-	xTar -= 5;
+		xTar -= 5;
+		cropX = xTar - 1;
+		cropY = yTar+2;
+		cropSizeX = -4;
+		cropSizeY = 4;
 	} else  if(direction == 119){ // w
 	yTar -= 5;
 	} else if(direction == 100){ // d
 	xTar += 5;
 	} else  if(direction == 115){ // s
 	yTar += 5; 
+	}
+	
+	if(direction == 97){
+	var whatColor = ctx.getImageData(140,140,20,20);
+	
+		for (var i = 0; i < 4 * 4 * 4; i += 4) {
+			
+			if(whatColor.data[i] != 255){
+				console.log(whatColor.data[i]);
+			}
+			
+			  /*
+			  if (whatColor.data[i] == 255 || whatColor.data[i+1] == 255 
+				|| whatColor.data[i+2] == 255) {
+				alert("black collision");
+				break;
+			  }
+			   if (whatColor.data[i] == 0 || whatColor.data[i+1] == 0 
+				|| whatColor.data[i+2] == 0) {
+				alert("white collision");
+				break;
+			  }
+			  */
+		}
 	}
 
 	ctx.beginPath();
@@ -75,8 +107,8 @@ function start() {
 function stop() {
   window.clearInterval(timer);
   canvas.width = canvas.width;
-  xPos = 150;
-  yPos = 150;
+  xPos = 200;
+  yPos = 200;
   
   	xTar = xPos;
 	yTar = yPos;
@@ -87,7 +119,7 @@ function stop() {
  
 </head>
 <body onload="init();" style="background-color:black">
-  <canvas id="canvas" width="300" height="300" style="background-color:white"></canvas>
+  <canvas id="canvas" width="400" height="400"></canvas>
   <br />
   
   <button  onclick="start()"  >Start</button> 
