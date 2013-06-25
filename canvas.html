@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+ 
+<script>
+var canvas;
+var ctx;
+
+var xPos;
+var yPos;
+
+var xTar;
+var yTar;
+
+focusInput = function()
+{
+	document.getElementById("canvas").focus();
+};
+	
+function doKeyDown(e) {
+
+ if(e.keyCode == 97){
+	xTar -= 5;
+	console.log("!!!!"+xPos);
+} else  if(e.keyCode == 119){
+	yTar += 5;
+	console.log("!!!!"+xPos);
+} else if(e.keyCode == 100){
+	xTar += 5;
+	console.log("!!!!"+xPos);
+} else  if(e.keyCode == 115){
+	yTar -= 5;
+	console.log("!!!!"+xPos);
+}
+
+draw();
+ 
+}
+
+function init() {
+  canvas = document.getElementById('canvas');
+  if (canvas.getContext) {
+    ctx = canvas.getContext("2d");    
+  }
+  
+  window.addEventListener( "keypress", doKeyDown, false );
+  
+  xPos = 150;
+  yPos = 150;
+  
+  	xTar = xPos;
+	yTar = yPos;
+}
+
+function draw() {
+	ctx.beginPath();
+	ctx.moveTo(xPos,yPos);
+	ctx.lineTo(xTar,yTar);
+	ctx.closePath();
+	ctx.stroke();
+	console.log(xPos);
+	
+
+	
+	  xPos = xTar;
+  yPos = yTar;
+}
+</script>
+ 
+</head>
+<body onload="init();" style="background-color:black">
+  <canvas id="canvas" width="300" height="300" style="background-color:white"></canvas>
+  <br />
+  
+  <button type="button" onclick="draw()">Click Me!</button> 
+</body>
+</html>
