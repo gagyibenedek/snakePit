@@ -13,29 +13,18 @@ var yPos;
 var xTar;
 var yTar;
 
-focusInput = function()
-{
-	document.getElementById("canvas").focus();
-};
-	
+var timer;
+
+var direction;
+
+
 function doKeyDown(e) {
 
- if(e.keyCode == 97){
-	xTar -= 5;
-	console.log("!!!!"+xPos);
-} else  if(e.keyCode == 119){
-	yTar += 5;
-	console.log("!!!!"+xPos);
-} else if(e.keyCode == 100){
-	xTar += 5;
-	console.log("!!!!"+xPos);
-} else  if(e.keyCode == 115){
-	yTar -= 5;
-	console.log("!!!!"+xPos);
-}
+ if(e.keyCode == 97 || e.keyCode == 119 || e.keyCode == 100 || e.keyCode == 115){ // a || s || d || w
+	direction = e.keyCode;
+	console.log("DIR CHANGED TO:" + direction);
+} 
 
-draw();
- 
 }
 
 function init() {
@@ -51,20 +40,48 @@ function init() {
   
   	xTar = xPos;
 	yTar = yPos;
+	
+	direction = 97;
 }
 
 function draw() {
+	console.log(direction);
+
+	if(direction == 97){ // a
+	xTar -= 5;
+	} else  if(direction == 119){ // w
+	yTar -= 5;
+	} else if(direction == 100){ // d
+	xTar += 5;
+	} else  if(direction == 115){ // s
+	yTar += 5; 
+	}
+
 	ctx.beginPath();
 	ctx.moveTo(xPos,yPos);
 	ctx.lineTo(xTar,yTar);
+	ctx.lineWidth = 5;
 	ctx.closePath();
 	ctx.stroke();
-	console.log(xPos);
-	
-
 	
 	  xPos = xTar;
   yPos = yTar;
+}
+
+function start() {
+  timer = window.setInterval(function () {draw()},100);
+}
+
+function stop() {
+  window.clearInterval(timer);
+  canvas.width = canvas.width;
+  xPos = 150;
+  yPos = 150;
+  
+  	xTar = xPos;
+	yTar = yPos;
+	
+	direction = 97;
 }
 </script>
  
@@ -73,6 +90,7 @@ function draw() {
   <canvas id="canvas" width="300" height="300" style="background-color:white"></canvas>
   <br />
   
-  <button type="button" onclick="draw()">Click Me!</button> 
+  <button  onclick="start()"  >Start</button> 
+  <button  onclick="stop()"  >Stop</button> 
 </body>
 </html>
