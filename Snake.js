@@ -87,3 +87,11 @@ Snake.prototype.draw = function () {
     this.currentY = yTar;
 
 };
+
+Snake.prototype.setDirection = function (keyCode) {
+    "use strict";
+
+    if (this.front === keyCode || this.left === keyCode || this.back === keyCode || this.right === keyCode) {
+        this.direction = keyCode;
+    }
+};
