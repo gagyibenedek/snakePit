@@ -62,10 +62,17 @@ function init() {
 function start() {
     "use strict";
 
-    /* = window.setInterval(function () {
+    timer = window.setInterval(function () {
             draw()
-        }, timerValue);*/
-    console.log("AAAA");
+        }, timerValue);
+
+}
+
+function draw(){
+	for (i = 0; i < snakes.length;
+        (i++)) {
+        snakes[i].draw();
+    }
 }
 
 function stop() {
