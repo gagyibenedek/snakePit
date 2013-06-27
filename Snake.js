@@ -1,88 +1,89 @@
-function Snake(currentX, currentY, direction, color, front, left, back, right ctx){
+function Snake(currentX, currentY, direction, color, front, left, back, right, ctx) {
+    "use strict";
 
-	this.currentX = currentX;
-	this.currentY = currentY;
-	this.direction = direction;
-	this.color = color;
-	this.front = front;
-	this.left = left;
-	this.back = back;
-	this.right = right;
-	this.ctx = ctx;
-
-} 
-
-Snake.prototype.getX = function(){
-	return this.currentX;
+    this.currentX = currentX;
+    this.currentY = currentY;
+    this.direction = direction;
+    this.color = color;
+    this.front = front;
+    this.left = left;
+    this.back = back;
+    this.right = right;
+    this.ctx = ctx;
 }
 
-Snake.prototype.getY = function(){
-	return this.currentY;
-}
+Snake.prototype.getX = function () {
+    "use strict";
+    return this.currentX;
+};
 
-Snake.prototype.draw = function(){
+Snake.prototype.getY = function () {
+    "use strict";
+    return this.currentY;
+};
 
-	var cropX;
-	var cropY;
-	var cropSizeX;
-	var cropSizeY;
-	var xTar = this.currentX;
-	var yTar = this.currentY;
+Snake.prototype.draw = function () {
+    "use strict";
 
-	if(direction == this.left){
-		xTar -= 5;
-		
-		cropX = xTar + 2;
-		cropY = yTar - 2;
-		cropSizeX = -4;
-		cropSizeY = 4;
-	} else  if(direction == this.front){
-		yTar -= 5;
-		
-		cropX = xTar + 2;
-		cropY = yTar - 2;
-		cropSizeX = - 4;
-		cropSizeY = 4;
-	} else if(direction == this.right){
-		xTar += 5;
-		
-		cropX = xTar + 2;
-		cropY = yTar - 2;
-		cropSizeX = - 4;
-		cropSizeY = 4;
-	} else  if(direction == this.back){
-		yTar += 5; 
-		
-		cropX = xTar + 2;
-		cropY = yTar - 2;
-		cropSizeX = -4;
-		cropSizeY = 4;
-	}
-	
+    var cropX,
+        cropY,
+        cropSizeX,
+        cropSizeY,
+        xTar = this.currentX,
+        whatColor = this.ctx.getImageData(cropX, cropY, cropSizeX, cropSizeY),
+        i,
+        yTar = this.currentY;
 
-	var whatColor = ctx.getImageData(cropX,cropY,cropSizeX,cropSizeY);
-	
-		for (var i = 0; i < 4 * 4 * 4; i += 4) {
-						  
-			if (whatColor.data[i] != 255 || whatColor.data[i+1] != 255 
-				|| whatColor.data[i+2] != 255) {
-				alert("collision!");
-				stop();
-				break;
-			}
-			  
-		}
-	
+    if (this.direction === this.left) {
+        xTar -= 5;
 
-	ctx.beginPath();
-	ctx.moveTo(currentX,currentY);
-	ctx.lineTo(xTar,yTar);
-	ctx.lineWidth = 5;
-	ctx.closePath();
-	ctx.strokeStyle = this.color;
-	ctx.stroke();
-	
-	this.currentX = xTar;
-	this.currentY = yTar;
+        cropX = xTar + 2;
+        cropY = yTar - 2;
+        cropSizeX = -4;
+        cropSizeY = 4;
+    } else if (this.direction === this.front) {
+        yTar -= 5;
 
-}
+        cropX = xTar + 2;
+        cropY = yTar - 2;
+        cropSizeX = -4;
+        cropSizeY = 4;
+    } else if (this.direction === this.right) {
+        xTar += 5;
+
+        cropX = xTar + 2;
+        cropY = yTar - 2;
+        cropSizeX = -4;
+        cropSizeY = 4;
+    } else if (this.direction === this.back) {
+        yTar += 5;
+
+        cropX = xTar + 2;
+        cropY = yTar - 2;
+        cropSizeX = -4;
+        cropSizeY = 4;
+    }
+
+    for (i = 0; i < 4 * 4 * 4; i += 4) {
+
+        if (whatColor.data[i] !== 255 || whatColor.data[i + 1] !== 255 || whatColor.data[i + 2] !== 255) {
+            //alert("collision!");
+            //stop();
+            break;
+        }
+
+    }
+
+
+    this.ctx.beginPath();
+    this.ctx.moveTo(this.currentX, this.currentY);
+    this.ctx.lineTo(xTar, yTar);
+    this.ctx.lineWidth = 5;
+    this.ctx.closePath();
+    this.ctx.strokeStyle = this.color;
+    this.ctx.stroke();
+
+    this.currentX = xTar;
+    this.currentY = yTar;
+
+};
