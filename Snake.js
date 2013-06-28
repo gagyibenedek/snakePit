@@ -30,11 +30,11 @@ Snake.prototype.draw = function () {
         cropSizeX,
         cropSizeY,
         xTar = this.currentX,
-        whatColor = this.ctx.getImageData(cropX, cropY, cropSizeX, cropSizeY),
+        whatColor,
         i,
         yTar = this.currentY;
-
-    if (this.direction === this.left) {
+	
+    if (this.direction === this.right) {
         xTar -= 5;
 
         cropX = xTar + 2;
@@ -48,7 +48,7 @@ Snake.prototype.draw = function () {
         cropY = yTar - 2;
         cropSizeX = -4;
         cropSizeY = 4;
-    } else if (this.direction === this.right) {
+    } else if (this.direction === this.left) {
         xTar += 5;
 
         cropX = xTar + 2;
@@ -63,12 +63,14 @@ Snake.prototype.draw = function () {
         cropSizeX = -4;
         cropSizeY = 4;
     }
+	
+	whatColor = this.ctx.getImageData(cropX, cropY, cropSizeX, cropSizeY);
 
     for (i = 0; i < 4 * 4 * 4; i += 4) {
 
         if (whatColor.data[i] !== 255 || whatColor.data[i + 1] !== 255 || whatColor.data[i + 2] !== 255) {
-            //alert("collision!");
-            //stop();
+            alert("collision!" + this.color +" died :P");
+            stop();
             break;
         }
 
@@ -91,7 +93,13 @@ Snake.prototype.draw = function () {
 Snake.prototype.setDirection = function (keyCode) {
     "use strict";
 
-    if (this.front === keyCode || this.left === keyCode || this.back === keyCode || this.right === keyCode) {
+    if (this.front === keyCode && direction !== keyCode){
+		this.direction = keyCode;
+	} else if(this.left === keyCode && direction !== keyCode){
+		this.direction = keyCode;
+	}else if(this.back === keyCode && direction !== keyCode){
+		this.direction = keyCode;
+	} else if(this.right === keyCode && direction !== keyCode) {
         this.direction = keyCode;
     }
 };

@@ -16,7 +16,7 @@ function doKeyDown(e) {
     "use strict";
 
     var i;
-
+	
     for (i = 0; i < snakes.length;
         (i++)) {
         snakes[i].setDirection(e.keyCode);
@@ -44,6 +44,8 @@ function init() {
     "use strict";
 
     var ctx;
+	
+	timerValue = 100;
 
     canvas = document.getElementById('canvas');
     if (canvas.getContext) {
@@ -56,7 +58,9 @@ function init() {
 
     snakes = [];
 
-    snakes.push(new Snake(150, 150, 97, "black", 119, 100, 115, 97, ctx));
+	// directions: front, left, back, right
+    snakes.push(new Snake(50, 50, 115, "black", 119, 100, 115, 97, ctx));
+	snakes.push(new Snake(250, 250, 105, "olive", 105, 108, 107, 106, ctx));
 }
 
 function start() {
