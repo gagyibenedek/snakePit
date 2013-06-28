@@ -17,6 +17,8 @@ function doKeyDown(e) {
 
     var i;
 	
+	console.log(e.keyCode);
+	
     for (i = 0; i < snakes.length;
         (i++)) {
         snakes[i].setDirection(e.keyCode);
@@ -61,6 +63,7 @@ function init() {
 	// directions: front, left, back, right
     snakes.push(new Snake(50, 50, 115, "black", 119, 100, 115, 97, ctx));
 	snakes.push(new Snake(250, 250, 105, "olive", 105, 108, 107, 106, ctx));
+	snakes.push(new Snake(50, 250, 51, "pink", 53, 51, 50, 49, ctx));
 }
 
 function start() {
