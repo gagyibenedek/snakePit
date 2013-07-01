@@ -1,4 +1,4 @@
-function Snake(currentX, currentY, direction, color, front, left, back, right, ctx) {
+function Snake(currentX, currentY, direction, color, front, left, back, right, ctx,stop) {
     "use strict";
 
     this.currentX = currentX;
@@ -93,13 +93,13 @@ Snake.prototype.draw = function () {
 Snake.prototype.setDirection = function (keyCode) {
     "use strict";
 
-    if (this.front === keyCode && direction !== keyCode){
+    if (this.front === keyCode && this.direction !== this.back){
 		this.direction = keyCode;
-	} else if(this.left === keyCode && direction !== keyCode){
+	} else if(this.left === keyCode && this.direction !== this.right){
 		this.direction = keyCode;
-	}else if(this.back === keyCode && direction !== keyCode){
+	}else if(this.back === keyCode && this.direction !== this.front){
 		this.direction = keyCode;
-	} else if(this.right === keyCode && direction !== keyCode) {
+	} else if(this.right === keyCode && this.direction !== this.left) {
         this.direction = keyCode;
     }
 };

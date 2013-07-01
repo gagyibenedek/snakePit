@@ -5,6 +5,7 @@ var xPos,
     xTar,
     yTar,
     canvas,
+	ctx,
     timer,
     bonusTimer,
     timerValue,
@@ -44,8 +45,6 @@ function doKeyDown(e) {
 
 function init() {
     "use strict";
-
-    var ctx;
 	
 	timerValue = 100;
 
@@ -56,18 +55,27 @@ function init() {
         ctx.fillRect(0, 0, 400, 400); // now fill the canvas
     }
 
-    window.addEventListener("keypress", doKeyDown, false);
-
-    snakes = [];
-
-	// directions: front, left, back, right
-    snakes.push(new Snake(50, 50, 115, "black", 119, 100, 115, 97, ctx));
-	snakes.push(new Snake(250, 250, 105, "olive", 105, 108, 107, 106, ctx));
-	snakes.push(new Snake(50, 250, 51, "pink", 53, 51, 50, 49, ctx));
+    window.addEventListener("keypress", doKeyDown, false);    
 }
 
 function start() {
     "use strict";
+	
+	canvas.width = canvas.width;
+	ctx.clearRect(0, 0, 400, 400);
+	
+	snakes = [];
+
+	var players = document.getElementById('playerNr').value;
+	
+	// directions: front, left, back, right
+    snakes.push(new Snake(50, 50, 115, "black", 119, 100, 115, 97, ctx, stop()));
+	if(players > 1){
+		snakes.push(new Snake(250, 250, 105, "olive", 105, 108, 107, 106, ctx, stop()));
+	}
+	if(players > 2){
+		snakes.push(new Snake(50, 250, 51, "pink", 53, 51, 50, 49, ctx, stop()));
+	}
 
     timer = window.setInterval(function () {
             draw()
@@ -85,7 +93,6 @@ function draw(){
 function stop() {
     "use strict";
 
-    window.clearInterval(timer);
-    canvas.width = canvas.width;
+	window.clearInterval(timer);
     init();
 }
