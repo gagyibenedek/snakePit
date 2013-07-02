@@ -10,6 +10,9 @@ function Snake(currentX, currentY, direction, color, front, left, back, right, c
     this.back = back;
     this.right = right;
     this.ctx = ctx;
+	
+	this.point = 100;
+	this.redraw = true;
 }
 
 Snake.prototype.getX = function () {
@@ -69,8 +72,9 @@ Snake.prototype.draw = function () {
     for (i = 0; i < 4 * 4 * 4; i += 4) {
 
         if (whatColor.data[i] !== 255 || whatColor.data[i + 1] !== 255 || whatColor.data[i + 2] !== 255) {
-            alert("collision!" + this.color +" died :P");
-            stop();
+            //alert("collision!" + this.color +" died :P");
+			this.redraw = false;
+            //stop();
             break;
         }
 

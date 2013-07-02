@@ -68,13 +68,21 @@ function start() {
 
 	var players = document.getElementById('playerNr').value;
 	
+	var x1rand = Math.floor(Math.random()*101+20);
+	var y1rand = Math.floor(Math.random()*101+20);
+	var x2rand = Math.floor(Math.random()*101+300);
+	var y2rand = Math.floor(Math.random()*101+300);
+	
+	var scores = document.getElementById("scores");
+	
+	
 	// directions: front, left, back, right
-    snakes.push(new Snake(50, 50, 115, "black", 119, 100, 115, 97, ctx, stop()));
+    snakes.push(new Snake(x1rand, y1rand, 115, "black", 119, 100, 115, 97, ctx, stop()));
 	if(players > 1){
-		snakes.push(new Snake(250, 250, 105, "olive", 105, 108, 107, 106, ctx, stop()));
+		snakes.push(new Snake(x2rand, y2rand, 105, "olive", 105, 108, 107, 106, ctx, stop()));
 	}
 	if(players > 2){
-		snakes.push(new Snake(50, 250, 51, "pink", 53, 51, 50, 49, ctx, stop()));
+		snakes.push(new Snake(x1rand, y2rand, 51, "pink", 53, 51, 50, 49, ctx, stop()));
 	}
 
     timer = window.setInterval(function () {
@@ -86,7 +94,10 @@ function start() {
 function draw(){
 	for (i = 0; i < snakes.length;
         (i++)) {
-        snakes[i].draw();
+		var snake = snakes[i];
+		if(snake.redraw){
+			snakes[i].draw();
+		}
     }
 }
 
