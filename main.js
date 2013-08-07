@@ -18,8 +18,6 @@ function doKeyDown(e) {
 
     var i;
 	
-	console.log(e.keyCode);
-	
     for (i = 0; i < snakes.length;
         (i++)) {
         snakes[i].setDirection(e.keyCode);
@@ -58,8 +56,12 @@ function init() {
     window.addEventListener("keypress", doKeyDown, false);    
 }
 
-function start() {
+var start = function(){
     "use strict";
+	var date = new Date();
+	document.getElementById("controlButton").firstChild.data="Next round";
+	
+	start = function (){
 	
 	canvas.width = canvas.width;
 	ctx.clearRect(0, 0, 400, 400);
@@ -88,15 +90,20 @@ function start() {
     timer = window.setInterval(function () {
             draw()
         }, timerValue);
+		
+	};
 
+	start();
 }
 
 function draw(){
+	var roundOver = true;
 	for (i = 0; i < snakes.length;
         (i++)) {
 		var snake = snakes[i];
 		if(snake.redraw){
 			snakes[i].draw();
+			roundOver = false;
 		}
     }
 }
