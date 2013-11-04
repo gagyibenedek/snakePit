@@ -1,4 +1,4 @@
-function Snake(currentX, currentY, direction, color, front, left, back, right, ctx,stop) {
+function Snake(currentX, currentY, direction, color, front, left, back, right, ctx, stop, id) {
     "use strict";
 
     this.currentX = currentX;
@@ -10,9 +10,10 @@ function Snake(currentX, currentY, direction, color, front, left, back, right, c
     this.back = back;
     this.right = right;
     this.ctx = ctx;
-	
-	this.point = 100;
-	this.redraw = true;
+    this.id = id;
+
+    this.point = 100;
+    this.redraw = true;
 }
 
 Snake.prototype.getX = function () {
@@ -35,8 +36,9 @@ Snake.prototype.draw = function () {
         xTar = this.currentX,
         whatColor,
         i,
-        yTar = this.currentY;
-	
+        yTar = this.currentY,
+        idString;
+
     if (this.direction === this.right) {
         xTar -= 5;
 
@@ -66,14 +68,17 @@ Snake.prototype.draw = function () {
         cropSizeX = -4;
         cropSizeY = 4;
     }
-	
-	whatColor = this.ctx.getImageData(cropX, cropY, cropSizeX, cropSizeY);
+
+    whatColor = this.ctx.getImageData(cropX, cropY, cropSizeX, cropSizeY);
 
     for (i = 0; i < 4 * 4 * 4; i += 4) {
 
         if (whatColor.data[i] !== 255 || whatColor.data[i + 1] !== 255 || whatColor.data[i + 2] !== 255) {
             //alert("collision!" + this.color +" died :P");
-			this.redraw = false;
+            this.redraw = false;
+            this.point -= 10;
+            idString = "player" + this.id;
+            document.getElementById(idString).firstChild.data = this.point;
             //stop();
             break;
         }
@@ -94,16 +99,29 @@ Snake.prototype.draw = function () {
 
 };
 
+Snake.prototype.win = function () {
+    this.point += 5;
+    this.redraw = false;
+}
+
 Snake.prototype.setDirection = function (keyCode) {
     "use strict";
 
-    if (this.front === keyCode && this.direction !== this.back){
-		this.direction = keyCode;
-	} else if(this.left === keyCode && this.direction !== this.right){
-		this.direction = keyCode;
-	}else if(this.back === keyCode && this.direction !== this.front){
-		this.direction = keyCode;
-	} else if(this.right === keyCode && this.direction !== this.left) {
+    if (this.front === keyCode && this.direction !== this.back) {
+        this.direction = keyCode;
+    } else if (this.left === keyCode && this.direction !== this.right) {
+        this.direction = keyCode;
+    } else if (this.back === keyCode && this.direction !== this.front) {
+        this.direction = keyCode;
+    } else if (this.right === keyCode && this.direction !== this.left) {
         this.direction = keyCode;
     }
 };
+
+Snake.prototype.restart = function (currentX, currentY) {
+    "use strict";
+
+    this.currentX = currentX;
+    this.currentY = currentY;
+    this.redraw = true;
+}

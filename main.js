@@ -5,7 +5,7 @@ var xPos,
     xTar,
     yTar,
     canvas,
-	ctx,
+    ctx,
     timer,
     bonusTimer,
     timerValue,
@@ -17,7 +17,7 @@ function doKeyDown(e) {
     "use strict";
 
     var i;
-	
+
     for (i = 0; i < snakes.length;
         (i++)) {
         snakes[i].setDirection(e.keyCode);
@@ -43,8 +43,8 @@ function doKeyDown(e) {
 
 function init() {
     "use strict";
-	
-	timerValue = 100;
+
+    timerValue = 100;
 
     canvas = document.getElementById('canvas');
     if (canvas.getContext) {
@@ -53,64 +53,92 @@ function init() {
         ctx.fillRect(0, 0, 400, 400); // now fill the canvas
     }
 
-    window.addEventListener("keypress", doKeyDown, false);    
+    window.addEventListener("keypress", doKeyDown, false);
 }
 
-var start = function(){
+var start = function () {
     "use strict";
-	var date = new Date();
-	document.getElementById("controlButton").firstChild.data="Next round";
-	
-	start = function (){
-	
-	canvas.width = canvas.width;
-	ctx.clearRect(0, 0, 400, 400);
-	
-	snakes = [];
+    var date = new Date();
+    document.getElementById("controlButton").firstChild.data = "Next round";
 
-	var players = document.getElementById('playerNr').value;
-	
-	var x1rand = Math.floor(Math.random()*101+20);
-	var y1rand = Math.floor(Math.random()*101+20);
-	var x2rand = Math.floor(Math.random()*101+300);
-	var y2rand = Math.floor(Math.random()*101+300);
-	
-	var scores = document.getElementById("scores");
-	
-	
-	// directions: front, left, back, right
-    snakes.push(new Snake(x1rand, y1rand, 115, "black", 119, 100, 115, 97, ctx, stop()));
-	if(players > 1){
-		snakes.push(new Snake(x2rand, y2rand, 105, "olive", 105, 108, 107, 106, ctx, stop()));
-	}
-	if(players > 2){
-		snakes.push(new Snake(x1rand, y2rand, 51, "pink", 53, 51, 50, 49, ctx, stop()));
-	}
+    snakes = [];
+
+    var players = document.getElementById('playerNr').value;
+
+    var scores = document.getElementById("scores");
+
+
+    // directions: front, left, back, right
+    snakes.push(new Snake(generateCoordinate(20), generateCoordinate(20), 115, "black", 119, 100, 115, 97, ctx, stop(), 0));
+    if (players > 1) {
+        snakes.push(new Snake(generateCoordinate(300), generateCoordinate(300), 105, "olive", 105, 108, 107, 106, ctx, stop(), 1));
+    }
+    if (players > 2) {
+        snakes.push(new Snake(generateCoordinate(20), generateCoordinate(300), 51, "pink", 53, 51, 50, 49, ctx, stop(), 2));
+    }
+
+    refreshPoints();
 
     timer = window.setInterval(function () {
+        draw()
+    }, timerValue);
+
+
+    start = function () {
+
+        canvas.width = canvas.width;
+        ctx.clearRect(0, 0, 400, 400);
+        ctx.fillStyle = '#FFFFFF'; // set canvas background color
+        ctx.fillRect(0, 0, 400, 400); // now fill the canvas
+
+        restartSnakes();
+
+        window.clearInterval(timer);
+        timer = window.setInterval(function () {
             draw()
         }, timerValue);
-		
-	};
 
-	start();
+    };
+
 }
 
-function draw(){
-	var roundOver = true;
-	for (i = 0; i < snakes.length;
-        (i++)) {
-		var snake = snakes[i];
-		if(snake.redraw){
-			snakes[i].draw();
-			roundOver = false;
-		}
+    function refreshPoints() {
+        for (var i = 0; i < snakes.length; i++) {
+            document.getElementById("player" + i).firstChild.data = snakes[i].point;
+        }
     }
-}
 
-function stop() {
-    "use strict";
+    function draw() {
+        var alive = 0;
+        var survivor = -1;
+        for (i = 0; i < snakes.length;
+            (i++)) {
+            var snake = snakes[i];
+            if (snake.redraw) {
+                snakes[i].draw();
+                alive++;
+                survivor = i;
+            }
+        }
+        var players = document.getElementById('playerNr').value;
+        if (players > 1 && alive == 1) {
+            snakes[survivor].win();
+            refreshPoints();
+        }
+    }
 
-	window.clearInterval(timer);
-    init();
-}
+    function generateCoordinate(base) {
+        return Math.floor(Math.random() * 101 + base);
+    }
+
+    function restartSnakes() {
+        if (snakes.length > 0) {
+            snakes[0].restart(generateCoordinate(20), generateCoordinate(20));
+        }
+        if (snakes.length > 1) {
+            snakes[1].restart(generateCoordinate(300), generateCoordinate(300));
+        }
+        if (snakes.length > 2) {
+            snakes[2].restart(generateCoordinate(20), generateCoordinate(300));
+        }
+    }
