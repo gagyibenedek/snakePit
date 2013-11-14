@@ -1,16 +1,10 @@
 /*jslint browser: true*/
 /*global draw, Snake, console*/
-var xPos,
-    yPos,
-    xTar,
-    yTar,
-    canvas,
+var canvas,
     ctx,
     timer,
-    bonusTimer,
     timerValue,
-    snakes,
-    direction;
+    snakes;
 
 
 function doKeyDown(e) {
@@ -58,29 +52,26 @@ function init() {
 
 var start = function () {
     "use strict";
-    var date = new Date();
-    document.getElementById("controlButton").firstChild.data = "Next round";
-
+    document.getElementById("playerSelect").style.display="none";
+    document.getElementById("gameInterface").style.display="inline";
+    
     snakes = [];
 
     var players = document.getElementById('playerNr').value;
 
-    var scores = document.getElementById("scores");
-
-
     // directions: front, left, back, right
-    snakes.push(new Snake(generateCoordinate(20), generateCoordinate(20), 115, "black", 119, 100, 115, 97, ctx, stop(), 0));
+    snakes.push(new Snake(generateCoordinate(20), generateCoordinate(20), 115, "black", 119, 100, 115, 97, ctx, 0));
     if (players > 1) {
-        snakes.push(new Snake(generateCoordinate(300), generateCoordinate(300), 105, "olive", 105, 108, 107, 106, ctx, stop(), 1));
+        snakes.push(new Snake(generateCoordinate(300), generateCoordinate(300), 105, "olive", 105, 108, 107, 106, ctx, 1));
     }
     if (players > 2) {
-        snakes.push(new Snake(generateCoordinate(20), generateCoordinate(300), 51, "pink", 53, 51, 50, 49, ctx, stop(), 2));
+        snakes.push(new Snake(generateCoordinate(20), generateCoordinate(300), 51, "pink", 53, 51, 50, 49, ctx, 2));
     }
 
     refreshPoints();
 
     timer = window.setInterval(function () {
-        draw()
+        draw();
     }, timerValue);
 
 
@@ -95,12 +86,12 @@ var start = function () {
 
         window.clearInterval(timer);
         timer = window.setInterval(function () {
-            draw()
+            draw();
         }, timerValue);
 
     };
 
-}
+};
 
     function refreshPoints() {
         for (var i = 0; i < snakes.length; i++) {
@@ -111,6 +102,7 @@ var start = function () {
     function draw() {
         var alive = 0;
         var survivor = -1;
+        var i;
         for (i = 0; i < snakes.length;
             (i++)) {
             var snake = snakes[i];
@@ -140,5 +132,14 @@ var start = function () {
         }
         if (snakes.length > 2) {
             snakes[2].restart(generateCoordinate(20), generateCoordinate(300));
+        }
+    }
+    
+    function toggleSelecter(playerId) {
+        var playerDiv = document.getElementById(playerId);
+        if(playerDiv.className === "selecterOff"){
+            playerDiv.className="selecterOn";
+        } else {
+            playerDiv.className="selecterOff";
         }
     }

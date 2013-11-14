@@ -2,44 +2,82 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+
+<link href="general.css" rel="stylesheet" type="text/css">
  
 <script  src="main.js"></script>
 <script  src="Snake.js"></script>
  
 </head>
 <body onload="init();" style="background-color:black">
-  <canvas id="canvas" width="400" height="400" style="margin-left:300px; display: inline"></canvas>
-  <div id="scores" style="background-color:white; margin-left:400px; width: 200px">
-	<table>
-		<tr>
-			<td>
-				<label for="player0">Player 1:</label>
-				<output id="player0">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label for="player1">Player 2:</label>
-				<output id="player1">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label for="player2">Player 3:</label>
-				<output id="player2">
-			</td>
-		</tr>	
-	</table>
-  </div>
-  <br />
-  
-	<div style="margin-left:300px">
-		<select id = "playerNr">
-			<option value = "1">1 Player</option>
-			<option value = "2">2 Players</option>
-			<option value = "3">3 Players</option>
-		</select>
-		<button id="controlButton" onclick="start()"  >Start</button> 
+    <div id="gameInterface" style="display: none">
+        <canvas id="canvas" width="400" height="400" style="margin-left:300px; display: inline"></canvas>
+        <div id="scores" style="background-color:white; margin-left:400px; width: 200px">
+    	<table>
+    		<tr>
+    			<td>
+    				<label for="player0">Player 1:</label>
+    				<output id="player0">
+    			</td>
+    		</tr>
+    		<tr>
+    			<td>
+    				<label for="player1">Player 2:</label>
+    				<output id="player1">
+    			</td>
+    		</tr>
+    		<tr>
+    			<td>
+    				<label for="player2">Player 3:</label>
+    				<output id="player2">
+    			</td>
+    		</tr>	
+    	</table>
+        </div>
+        <br />
+        <button id="nextRoundButton" onclick="start()">Next round</button>
+      
 	</div>
+	
+	<div id="playerSelect" class="playerSelectBox" style=" display: inline">
+	    <div id="p1Wrapper" class="playerWrapper">
+    	    <div id="p1" class="selecterOn" ></div>
+    	    <input type="text" id="p1Name" class="playerNameInput" placeholder="Player1">
+    	    <div id="p1Color" class="colorPicker">
+    	        <div id="p1c1" class="colorBlock" style="background-color: #000000" onClick="selectColor"></div>
+    	        <div id="p1c1" class="colorBlock" style="background-color: #00A1CB"></div>
+    	        <div id="p1c1" class="colorBlock" style="background-color: #D0D102"></div>
+    	        <div id="p1c1" class="colorBlock" style="background-color: #32742C"></div>
+    	        <div id="p1c1" class="colorBlock" style="background-color: #D70060"></div>
+    	        <div id="p1c1" class="colorBlock" style="background-color: #F18D05"></div>
+    	    </div>
+    	</div>
+    	<div id="p1Wrapper" class="playerWrapper">
+        	<div id="p2" class="selecterOff"  onClick="toggleSelecter('p2')"></div>
+    	    <input type="text" id="p2Name" class="playerNameInput" placeholder="Player2">
+    	     <div id="p1Color" class="colorPicker">
+    	        <div id="p2c1" class="colorBlock" style="background-color: #000000"></div>
+    	        <div id="p2c2" class="colorBlock" style="background-color: #00A1CB"></div>
+    	        <div id="p2c3" class="colorBlock" style="background-color: #D0D102"></div>
+    	        <div id="p2c4" class="colorBlock" style="background-color: #32742C"></div>
+    	        <div id="p2c5" class="colorBlock" style="background-color: #D70060"></div>
+    	        <div id="p2c6" class="colorBlock" style="background-color: #F18D05"></div>
+    	    </div>
+        </div>
+    	<div id="p1Wrapper" class="playerWrapper">
+    	    <div id="p3" class="selecterOff"  onClick="toggleSelecter('p3')"></div>
+    	    <input type="text" id="p3Name" class="playerNameInput" placeholder="Player3">
+    	     <div id="p1Color" class="colorPicker">
+    	        <div id="p3c1" class="colorBlock" style="background-color: #000000"></div>
+    	        <div id="p3c2" class="colorBlock" style="background-color: #00A1CB"></div>
+    	        <div id="p3c3" class="colorBlock" style="background-color: #D0D102"></div>
+    	        <div id="p3c4" class="colorBlock" style="background-color: #32742C"></div>
+    	        <div id="p3c5" class="colorBlock" style="background-color: #D70060"></div>
+    	        <div id="p3c6" class="colorBlock" style="background-color: #F18D05"></div>
+    	    </div>
+        </div>
+    	<br />
+    	<div id="startButton" class="buttonDiv" onClick="">Start game!</div>
+    </div>
 </body>
 </html>

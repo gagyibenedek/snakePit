@@ -1,4 +1,4 @@
-function Snake(currentX, currentY, direction, color, front, left, back, right, ctx, stop, id) {
+function Snake(currentX, currentY, direction, color, front, left, back, right, ctx, id) {
     "use strict";
 
     this.currentX = currentX;
@@ -102,7 +102,7 @@ Snake.prototype.draw = function () {
 Snake.prototype.win = function () {
     this.point += 5;
     this.redraw = false;
-}
+};
 
 Snake.prototype.setDirection = function (keyCode) {
     "use strict";
@@ -124,4 +124,4 @@ Snake.prototype.restart = function (currentX, currentY) {
     this.currentX = currentX;
     this.currentY = currentY;
     this.redraw = true;
-}
+};
