@@ -1,9 +1,9 @@
 /*jslint browser: true*/
-/*global draw, Snake, console*/
 var canvas,
     ctx,
     timer,
     timerValue,
+    gameInProgress,
     snakes;
 
 
@@ -43,11 +43,15 @@ function init() {
     canvas = document.getElementById('canvas');
     if (canvas.getContext) {
         ctx = canvas.getContext("2d");
-        ctx.fillStyle = '#FFFFFF'; // set canvas background color
+        ctx.fillStyle = '#113F8C'; // set canvas background color
         ctx.fillRect(0, 0, 400, 400); // now fill the canvas
     }
 
     window.addEventListener("keypress", doKeyDown, false);
+    
+    snakes = new Array(3);
+    
+    initInterface();
 }
 
 var start = function () {
@@ -55,20 +59,10 @@ var start = function () {
     document.getElementById("playerSelect").style.display="none";
     document.getElementById("gameInterface").style.display="inline";
     
-    snakes = [];
+    snakes = createSnakes(ctx);
+    initPoints(snakes);
 
-    var players = document.getElementById('playerNr').value;
-
-    // directions: front, left, back, right
-    snakes.push(new Snake(generateCoordinate(20), generateCoordinate(20), 115, "black", 119, 100, 115, 97, ctx, 0));
-    if (players > 1) {
-        snakes.push(new Snake(generateCoordinate(300), generateCoordinate(300), 105, "olive", 105, 108, 107, 106, ctx, 1));
-    }
-    if (players > 2) {
-        snakes.push(new Snake(generateCoordinate(20), generateCoordinate(300), 51, "pink", 53, 51, 50, 49, ctx, 2));
-    }
-
-    refreshPoints();
+    refreshPoints(snakes);
 
     timer = window.setInterval(function () {
         draw();
@@ -79,9 +73,10 @@ var start = function () {
 
         canvas.width = canvas.width;
         ctx.clearRect(0, 0, 400, 400);
-        ctx.fillStyle = '#FFFFFF'; // set canvas background color
+        ctx.fillStyle = '#113F8C'; // set canvas background color
         ctx.fillRect(0, 0, 400, 400); // now fill the canvas
 
+        gameInProgress = true;
         restartSnakes();
 
         window.clearInterval(timer);
@@ -92,12 +87,6 @@ var start = function () {
     };
 
 };
-
-    function refreshPoints() {
-        for (var i = 0; i < snakes.length; i++) {
-            document.getElementById("player" + i).firstChild.data = snakes[i].point;
-        }
-    }
 
     function draw() {
         var alive = 0;
@@ -112,15 +101,11 @@ var start = function () {
                 survivor = i;
             }
         }
-        var players = document.getElementById('playerNr').value;
-        if (players > 1 && alive == 1) {
+        if (snakes.length > 1 && alive == 1) {
             snakes[survivor].win();
-            refreshPoints();
+            refreshPoints(snakes);
+            gameInProgress = false;
         }
-    }
-
-    function generateCoordinate(base) {
-        return Math.floor(Math.random() * 101 + base);
     }
 
     function restartSnakes() {
@@ -135,11 +120,8 @@ var start = function () {
         }
     }
     
-    function toggleSelecter(playerId) {
-        var playerDiv = document.getElementById(playerId);
-        if(playerDiv.className === "selecterOff"){
-            playerDiv.className="selecterOn";
-        } else {
-            playerDiv.className="selecterOff";
+    function restartGameIfOver(){
+        if(!gameInProgress){
+            start();
         }
     }

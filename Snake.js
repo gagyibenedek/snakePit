@@ -1,6 +1,7 @@
-function Snake(currentX, currentY, direction, color, front, left, back, right, ctx, id) {
+function Snake(name, currentX, currentY, direction, color, front, left, back, right, ctx, id) {
     "use strict";
 
+    this.name = name;
     this.currentX = currentX;
     this.currentY = currentY;
     this.direction = direction;
@@ -36,8 +37,7 @@ Snake.prototype.draw = function () {
         xTar = this.currentX,
         whatColor,
         i,
-        yTar = this.currentY,
-        idString;
+        yTar = this.currentY;
 
     if (this.direction === this.right) {
         xTar -= 5;
@@ -73,18 +73,14 @@ Snake.prototype.draw = function () {
 
     for (i = 0; i < 4 * 4 * 4; i += 4) {
 
-        if (whatColor.data[i] !== 255 || whatColor.data[i + 1] !== 255 || whatColor.data[i + 2] !== 255) {
+        if (whatColor.data[i] !== 17 || whatColor.data[i + 1] !== 63 || whatColor.data[i + 2] !== 140) {
             //alert("collision!" + this.color +" died :P");
             this.redraw = false;
             this.point -= 10;
-            idString = "player" + this.id;
-            document.getElementById(idString).firstChild.data = this.point;
             //stop();
             break;
         }
-
     }
-
 
     this.ctx.beginPath();
     this.ctx.moveTo(this.currentX, this.currentY);

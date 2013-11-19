@@ -2,7 +2,7 @@
     background-color: #113F8C;
     top: 20%;
     left: 32%;
-    width:33%;
+    width: 650px;
     height:20em;
     border: none;
     position:fixed;
@@ -58,7 +58,7 @@
 }
 
 .buttonDiv:hover {
-    background-color: #F18D05;
+    background-color: #DB850F;
 }
 
 ::-webkit-input-placeholder { /* WebKit browsers */
@@ -67,14 +67,64 @@
 
 .colorPicker {
     width: 187px;
-    height: 18px;
+    height: 28px;
     padding: 2px;
 }
 
 .colorBlock {
     width: 16px;
     height: 16px;
-    margin-left:5px;
-    margin-right: 5px;
+    margin: 5px;
     display: inline-block;
+}
+
+.selectedColor {
+    width: 16px;
+    height: 16px;
+    margin: 2px;
+    display: inline-block;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #616161;
+}
+
+.hidden {
+    display: none;
+}
+
+.scoresWrapper {
+    width: 400px;
+    margin-left:300px;
+    display: block;
+    background-color: #113F8C;
+}
+
+.scoreBox {
+    width: 90px;
+    height: 90px;
+    margin-left: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: white;
+    display: inline-block;
+    text-align: center;
+    color: #FFFFFF;
+    font-family: "Andale Mono", AndaleMono, monospace;
+}
+
+.scoreBoxForTwo {
+    width: 140px;
+    height: 90px;
+    margin-left: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: white;
+    display: inline-block;
+    text-align: center;
+    color: #FFFFFF;
+    font-family: "Andale Mono", AndaleMono, monospace;
+}
+
+.scoreValue {
+    font-size: 2em;
 }
