@@ -130,3 +130,15 @@ function hideSelectedColor(colorId){
 function generateCoordinate(base) {
     return Math.floor(Math.random() * 101 + base);
 }
+
+function writeNextGame(context, bgColor){
+    context.lineWidth = "4";
+    context.fillStyle = bgColor;
+    context.fillRect(40,135,320,100);
+    context.stroke();
+    context.font = "30px Andale Mono";
+    context.fillStyle = "white";
+    context.fillText("CLICK", 150, 180);
+    context.fillText("to start the next round!", 60, 210);
+   
+}

@@ -105,6 +105,7 @@ var start = function () {
             snakes[survivor].win();
             refreshPoints(snakes);
             gameInProgress = false;
+            writeNextGame(ctx, snakes[survivor].color);
         }
     }
 
