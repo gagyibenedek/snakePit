@@ -4,13 +4,13 @@
 function initInterface(){
     document.getElementById("p1Color").addEventListener('click', function(e) {
         selectColor(e);
-    });   
+    });
     document.getElementById("p2Color").addEventListener('click', function(e) {
         selectColor(e);
-    }); 
+    });
     document.getElementById("p3Color").addEventListener('click', function(e) {
         selectColor(e);
-    }); 
+    });
 }
 
 function initPoints(snakes){
@@ -22,7 +22,7 @@ function initPoints(snakes){
             document.getElementById("p" + i + "Score").style.display = "none";
         }
     }
-    
+
     if(snakes.length == 2){
         document.getElementById("p1Score").className = "scoreBoxForTwo";
         document.getElementById("p2Score").className = "scoreBoxForTwo";
@@ -67,15 +67,15 @@ function createSnakes(ctx){
     var p1Name = document.getElementById("p1Name").value === "" ? "Player1" :  document.getElementById("p1Name").value;
     var p2Name = document.getElementById("p2Name").value === "" ? "Player2" :  document.getElementById("p2Name").value;
     var p3Name = document.getElementById("p3Name").value === "" ? "Player3" :  document.getElementById("p3Name").value;
-      
-    result.push(new Snake(p1Name, generateCoordinate(20), generateCoordinate(20), 115, getSelectedColor("p1"), 119, 100, 115, 97, ctx, 0));
+
+    result.push(new Snake(p1Name, generateCoordinate(20), generateCoordinate(20), 2, getSelectedColor("p1"), 100, 97, ctx, 0));
     if(document.getElementById("p2").className === "selecterOn"){
-        result.push(new Snake(p2Name,  generateCoordinate(300), generateCoordinate(300), 105, getSelectedColor("p2"), 105, 108, 107, 106, ctx, 1));
+        result.push(new Snake(p2Name,  generateCoordinate(300), generateCoordinate(300), 1, getSelectedColor("p2"),  108, 106, ctx, 1));
     }
     if(document.getElementById("p3").className === "selecterOn"){
-        result.push(new Snake(p3Name, generateCoordinate(20), generateCoordinate(300), 51, getSelectedColor("p3"), 53, 51, 50, 49, ctx, 2));
+        result.push(new Snake(p3Name, generateCoordinate(20), generateCoordinate(300), 1, getSelectedColor("p3"),  51, 49, ctx, 2));
     }
-    
+
     return result;
 }
 
@@ -113,7 +113,7 @@ function getSelectedColor(playerId){
                     result = "#FFFFFF";
                     break;
             }
-                
+
         }
     }
     return result;
@@ -123,7 +123,7 @@ function hideSelectedColor(colorId){
     for(var i=1; i < 4; i++){
         if(i.toString() !== colorId.charAt(1)){
             document.getElementById("p" + i + "c" + colorId.charAt(3)).className += " hidden";
-        }        
+        }
     }
 }
 
@@ -140,5 +140,5 @@ function writeNextGame(context, bgColor){
     context.fillStyle = "white";
     context.fillText("CLICK", 150, 180);
     context.fillText("to start the next round!", 60, 210);
-   
+
 }

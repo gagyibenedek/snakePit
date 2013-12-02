@@ -4,11 +4,11 @@
 <meta charset="UTF-8" />
 
 <link href="general.css" rel="stylesheet" type="text/css">
- 
+
 <script  src="main.js"></script>
 <script  src="Snake.js"></script>
 <script  src="interface.js"></script>
- 
+
 </head>
 <body onload="init();" style="background-color:black">
     <div id="gameInterface" class="gameInterfaceWrapper" style="display: none">
@@ -31,7 +31,7 @@
             </div>
         </div>
 	</div>
-	
+
 	<div id="playerSelect" class="playerSelectBox" style=" display: inline">
 	    <div id="p1Wrapper" class="playerWrapper">
     	    <div id="p1" class="selecterOn" ></div>
@@ -47,7 +47,7 @@
     	        <div id="p1c8" class="colorBlock" style="background-color: #E54028"></div>
     	    </div>
     	</div>
-    	<div id="p1Wrapper" class="playerWrapper">
+    	<div id="p2Wrapper" class="playerWrapper">
         	<div id="p2" class="selecterOn"></div>
     	    <input type="text" id="p2Name" class="playerNameInput" placeholder="Player2">
     	     <div id="p2Color" class="colorPicker">
@@ -61,7 +61,7 @@
     	        <div id="p2c8" class="colorBlock" style="background-color: #E54028"></div>
     	    </div>
         </div>
-    	<div id="p1Wrapper" class="playerWrapper">
+    	<div id="p3Wrapper" class="playerWrapper">
     	    <div id="p3" class="selecterOff"  onClick="toggleSelecter('p3')"></div>
     	    <input type="text" id="p3Name" class="playerNameInput" placeholder="Player3">
     	     <div id="p3Color" class="colorPicker">

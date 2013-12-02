@@ -1,4 +1,4 @@
-function Snake(name, currentX, currentY, direction, color, front, left, back, right, ctx, id) {
+function Snake(name, currentX, currentY, direction, color, right, left, ctx, id) {
     "use strict";
 
     this.name = name;
@@ -6,9 +6,7 @@ function Snake(name, currentX, currentY, direction, color, front, left, back, ri
     this.currentY = currentY;
     this.direction = direction;
     this.color = color;
-    this.front = front;
     this.left = left;
-    this.back = back;
     this.right = right;
     this.ctx = ctx;
     this.id = id;
@@ -39,28 +37,28 @@ Snake.prototype.draw = function () {
         i,
         yTar = this.currentY;
 
-    if (this.direction === this.right) {
+    if (this.direction === 3) { // right
         xTar -= 5;
 
         cropX = xTar + 2;
         cropY = yTar - 2;
         cropSizeX = -4;
         cropSizeY = 4;
-    } else if (this.direction === this.front) {
+    } else if (this.direction === 0) { // up
         yTar -= 5;
 
         cropX = xTar + 2;
         cropY = yTar - 2;
         cropSizeX = -4;
         cropSizeY = 4;
-    } else if (this.direction === this.left) {
+    } else if (this.direction === 1) { //left
         xTar += 5;
 
         cropX = xTar + 2;
         cropY = yTar - 2;
         cropSizeX = -4;
         cropSizeY = 4;
-    } else if (this.direction === this.back) {
+    } else if (this.direction === 2) { // down
         yTar += 5;
 
         cropX = xTar + 2;
@@ -103,15 +101,17 @@ Snake.prototype.win = function () {
 Snake.prototype.setDirection = function (keyCode) {
     "use strict";
 
-    if (this.front === keyCode && this.direction !== this.back) {
-        this.direction = keyCode;
-    } else if (this.left === keyCode && this.direction !== this.right) {
-        this.direction = keyCode;
-    } else if (this.back === keyCode && this.direction !== this.front) {
-        this.direction = keyCode;
-    } else if (this.right === keyCode && this.direction !== this.left) {
-        this.direction = keyCode;
+    if(this.right === keyCode){
+         this.direction++;
+    } else if(this.left === keyCode){
+          if(this.direction > 0){
+               this.direction--;
+          } else {
+               this.direction = 3;
+          }
     }
+    this.direction = Math.abs(this.direction) % 4;
+    console.log("DIRECTION " + this.name + ": " + this.direction);
 };
 
 Snake.prototype.restart = function (currentX, currentY) {
