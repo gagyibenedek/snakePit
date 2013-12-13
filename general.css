@@ -7,9 +7,9 @@
 .playerSelectBox {
     background-color: #113F8C;
     top: 20%;
-    left: 32%;
-    width: 650px;
-    height:20em;
+    left: 35%;
+    width: 450px;
+    min-height:20em;
     border: none;
     position:fixed;
 }
@@ -28,9 +28,17 @@
 
 .playerWrapper {
     display: inline-block;
-    margin-top: 5px;
-    margin-left: 15px;
+    margin-top: 20px;
+    margin-left: 10%;
     margin-bottom: 5px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+    border-width: 1px;
+    width: 80%;
 }
 
 .playerNameInput {
@@ -38,16 +46,18 @@
     outline: 0;
     background: transparent;
     border-bottom: 2px solid black;
-    width: 100%;
+    width: 70%;
+    margin-left: 15%;
     text-align: center;
     font-family: "Andale Mono", AndaleMono, monospace;
     color: #FFFFFF;
 }
 
 .buttonDiv {
-    width: 250px;
-    margin-left: 30%;
+    width: 50%;
+    margin-left: 25%;
     margin-top: 10px;
+    margin-bottom: 15px;
     background-color: #F18D05;
     text-align: center;
     font-family: "Andale Mono", AndaleMono, monospace;
@@ -56,6 +66,7 @@
     text-decoration: none;
     -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
+    border-radius: 20px;
     -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
     -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
     text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
@@ -72,7 +83,8 @@
 }
 
 .colorPicker {
-    width: 187px;
+    width: 70%;
+    margin-left: 15%;
     height: 28px;
     padding: 2px;
 }
@@ -80,7 +92,7 @@
 .colorBlock {
     width: 16px;
     height: 16px;
-    margin: 5px;
+    margin: 6px;
     display: inline-block;
 }
 
@@ -92,6 +104,23 @@
     border-style: solid;
     border-width: 3px;
     border-color: #616161;
+}
+
+.addPlayerText {
+     padding-top: 10px;
+     padding-bottom: 10px;
+     font-family: "Andale Mono", AndaleMono, monospace;
+     color: #FFFFFF;
+     text-align: center;
+     cursor: default;
+}
+
+.removePlayer {
+     font-family: "Andale Mono", AndaleMono, monospace;
+     color: #FFFFFF;
+     width: 20%;
+     margin-left: 77%;
+     cursor: default;
 }
 
 .hidden {

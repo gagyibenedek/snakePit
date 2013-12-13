@@ -1,16 +1,11 @@
 /*jslint browser: true*/
 /*global Snake*/
 
+
 function initInterface(){
-    document.getElementById("p1Color").addEventListener('click', function(e) {
-        selectColor(e);
-    });
-    document.getElementById("p2Color").addEventListener('click', function(e) {
-        selectColor(e);
-    });
-    document.getElementById("p3Color").addEventListener('click', function(e) {
-        selectColor(e);
-    });
+     document.getElementById("p1Color").addEventListener('click', function(e) {
+          selectColor(e);
+     });
 }
 
 function initPoints(snakes){
@@ -35,30 +30,112 @@ function refreshPoints(snakes) {
     }
 }
 
-function toggleSelecter(playerId) {
-    var playerDiv = document.getElementById(playerId);
-    if(playerDiv.className === "selecterOff"){
-        playerDiv.className="selecterOn";
-    } else {
-        playerDiv.className="selecterOff";
+function newPlayer(){
+     var root = document.getElementById('playerSelect');
+     var count = root.childNodes.length - 7;
+     var original,
+          clone,
+          removeDiv,
+          i,
+          idBuffer,
+          cloneColorList,
+          cloneColor;
+     if(count < 7){
+          document.getElementById('p' + (count - 1) + 'Remove').className = 'removePlayer hidden';
+
+          original = document.getElementById('p' + (count-1) + 'Wrapper');
+          clone = original.cloneNode(true); // "deep" clone
+          clone.id = clone.id.substr(0,1) + count + clone.id.substr(2);
+          removeDiv = clone.childNodes[5];
+          removeDiv.id = removeDiv.id.substr(0,1) + count + removeDiv.id.substr(2);
+          removeDiv.className = 'removePlayer';
+
+          changePlayerIndexes(clone, count);
+
+          root.insertBefore(clone, document.getElementById('addNewWrapper'));
+
+          // unselect
+          cloneColorList = document.getElementById("p" + count + "Color").childNodes;
+          for(i = cloneColorList.length - 1; i >= 0; i--){
+               if(cloneColorList[i].className === "selectedColor"){
+                    cloneColorList[i].className = "colorBlock";
+                    document.getElementById('p' + count + "c" + cloneColorList[i].id.charAt(3)).className += "hidden";
+               }
+          }
+
+          // select a new color
+          cloneColor = document.getElementById("p" + count + "c" + count);
+          cloneColor.className = "selectedColor";
+          hideSelectedColor(cloneColor.id);
+
+          document.getElementById("p" + count + "Color").addEventListener('click', function(e) {
+               selectColor(e);
+          });
+     }
+}
+
+function changePlayerIndexes(root, index){
+    for(var i = 0; i < root.childNodes.length; i++){
+          if(root.childNodes[i].id !== undefined ){
+               root.childNodes[i].id = root.childNodes[i].id.substr(0,1) + index + root.childNodes[i].id.substr(2);
+               if(root.childNodes[i].hasChildNodes()){
+                    changePlayerIndexes(root.childNodes[i], index);
+               }
+          }
     }
 }
 
+function removePlayer() {
+     var root = document.getElementById('playerSelect');
+     var count = root.childNodes.length - 8;
+     var child = document.getElementById('p' + count + 'Wrapper');
+     var colors = child.childNodes[3].childNodes;
+
+     for(var i = colors.length - 1; i >= 0 ; i--){
+          if(colors[i].className === "selectedColor"){
+               unhideColor(colors[i].id);
+          }
+     }
+
+     root.removeChild(child);
+     if(count > 2){
+          document.getElementById('p' + (count - 1) + 'Remove').className = 'removePlayer';
+     }
+}
+
 function selectColor(e){
+     var  children,
+          oldSelectedColorId;
+
     if(e.target.id.length === 4){
-        var children = e.target.parentNode.childNodes;
+        children = e.target.parentNode.childNodes;
         for(var i=0; i<children.length; i++) {
             if(children[i].className === "selectedColor"){
                 children[i].className = "colorBlock";
-                for(var j=1; j < 4; j++){
-                    if(j.toString() !== children[i].id.charAt(1)){
-                        document.getElementById("p" + j + "c" + children[i].id.charAt(3)).className = "colorBlock";
-                    }
-                }
+                oldSelectedColorId = "p" + children[i].id.charAt(1) + "c" + children[i].id.charAt(3);
             }
         }
         e.target.className = "selectedColor";
         hideSelectedColor(e.target.id);
+        unhideColor(oldSelectedColorId);
+    }
+}
+
+function hideSelectedColor(colorId){
+    var count = document.getElementById('playerSelect').childNodes.length - 8;
+    for(var i=count; i > 0; i--){
+        if(i.toString() !== colorId.charAt(1)){
+            document.getElementById("p" + i + "c" + colorId.charAt(3)).className += " hidden";
+        }
+    }
+}
+
+function unhideColor(colorId){
+     var count = document.getElementById('playerSelect').childNodes.length - 8;
+     for(var i=count; i > 0 ; i--){
+        if(i.toString() !== colorId.charAt(1)){
+            document.getElementById("p" + i + "c" + colorId.charAt(3)).className = "colorBlock";
+        }
     }
 }
 
@@ -119,14 +196,6 @@ function getSelectedColor(playerId){
     return result;
 }
 
-function hideSelectedColor(colorId){
-    for(var i=1; i < 4; i++){
-        if(i.toString() !== colorId.charAt(1)){
-            document.getElementById("p" + i + "c" + colorId.charAt(3)).className += " hidden";
-        }
-    }
-}
-
 function generateCoordinate(base) {
     return Math.floor(Math.random() * 101 + base);
 }
@@ -140,5 +209,4 @@ function writeNextGame(context, bgColor){
     context.fillStyle = "white";
     context.fillText("CLICK", 150, 180);
     context.fillText("to start the next round!", 60, 210);
-
 }

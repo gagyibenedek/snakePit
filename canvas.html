@@ -34,49 +34,26 @@
 
 	<div id="playerSelect" class="playerSelectBox" style=" display: inline">
 	    <div id="p1Wrapper" class="playerWrapper">
-    	    <div id="p1" class="selecterOn" ></div>
-    	    <input type="text" id="p1Name" class="playerNameInput" placeholder="Player1">
-    	    <div id="p1Color" class="colorPicker">
-    	        <div id="p1c1" class="selectedColor" style="background-color: #000000" onClick="selectColor"></div>
-    	        <div id="p1c2" class="colorBlock hidden" style="background-color: #00A1CB"></div>
-    	        <div id="p1c3" class="colorBlock hidden" style="background-color: #D0D102"></div>
-    	        <div id="p1c4" class="colorBlock" style="background-color: #32742C"></div>
-    	        <div id="p1c5" class="colorBlock" style="background-color: #D70060"></div>
-    	        <div id="p1c6" class="colorBlock" style="background-color: #F18D05"></div>
-    	        <div id="p1c7" class="colorBlock" style="background-color: #61AE24"></div>
-    	        <div id="p1c8" class="colorBlock" style="background-color: #E54028"></div>
-    	    </div>
-    	</div>
-    	<div id="p2Wrapper" class="playerWrapper">
-        	<div id="p2" class="selecterOn"></div>
-    	    <input type="text" id="p2Name" class="playerNameInput" placeholder="Player2">
-    	     <div id="p2Color" class="colorPicker">
-    	        <div id="p2c1" class="colorBlock hidden" style="background-color: #000000"></div>
-    	        <div id="p2c2" class="selectedColor" style="background-color: #00A1CB"></div>
-    	        <div id="p2c3" class="colorBlock hidden" style="background-color: #D0D102"></div>
-    	        <div id="p2c4" class="colorBlock" style="background-color: #32742C"></div>
-    	        <div id="p2c5" class="colorBlock" style="background-color: #D70060"></div>
-    	        <div id="p2c6" class="colorBlock" style="background-color: #F18D05"></div>
-    	        <div id="p2c7" class="colorBlock" style="background-color: #61AE24"></div>
-    	        <div id="p2c8" class="colorBlock" style="background-color: #E54028"></div>
-    	    </div>
-        </div>
-    	<div id="p3Wrapper" class="playerWrapper">
-    	    <div id="p3" class="selecterOff"  onClick="toggleSelecter('p3')"></div>
-    	    <input type="text" id="p3Name" class="playerNameInput" placeholder="Player3">
-    	     <div id="p3Color" class="colorPicker">
-    	        <div id="p3c1" class="colorBlock hidden" style="background-color: #000000"></div>
-    	        <div id="p3c2" class="colorBlock hidden" style="background-color: #00A1CB"></div>
-    	        <div id="p3c3" class="selectedColor" style="background-color: #D0D102"></div>
-    	        <div id="p3c4" class="colorBlock" style="background-color: #32742C"></div>
-    	        <div id="p3c5" class="colorBlock" style="background-color: #D70060"></div>
-    	        <div id="p3c6" class="colorBlock" style="background-color: #F18D05"></div>
-    	        <div id="p3c7" class="colorBlock" style="background-color: #61AE24"></div>
-    	        <div id="p3c8" class="colorBlock" style="background-color: #E54028"></div>
-    	    </div>
-        </div>
-    	<br />
-    	<div id="startButton" class="buttonDiv" onClick="start()">Start game!</div>
+         	    <input type="text" id="p1Name" class="playerNameInput" placeholder="Player1">
+         	    <div id="p1Color" class="colorPicker">
+         	        <div id="p1c1" class="selectedColor" style="background-color: #000000" onClick="selectColor"></div>
+         	        <div id="p1c2" class="colorBlock" style="background-color: #00A1CB"></div>
+         	        <div id="p1c3" class="colorBlock" style="background-color: #D0D102"></div>
+         	        <div id="p1c4" class="colorBlock" style="background-color: #32742C"></div>
+         	        <div id="p1c5" class="colorBlock" style="background-color: #D70060"></div>
+         	        <div id="p1c6" class="colorBlock" style="background-color: #F18D05"></div>
+         	        <div id="p1c7" class="colorBlock" style="background-color: #61AE24"></div>
+         	        <div id="p1c8" class="colorBlock" style="background-color: #E54028"></div>
+         	    </div>
+         	    <div id="p1Remove" class="removePlayer hidden" onClick="removePlayer()">Remove</div>
+    	     </div>
+    	     <div id="addNewWrapper" class="playerWrapper" onClick="newPlayer()">
+    	          <div id="addPlayerContainer" class="addPlayerText">
+    	               Add new player
+    	          </div>
+    	     </div>
+          <br />
+     	<div id="startButton" class="buttonDiv" onClick="start()">Start game!</div>
     </div>
 </body>
 </html>
